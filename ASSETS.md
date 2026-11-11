@@ -4,7 +4,7 @@ Checked November 11, 2026. These are licensed photographs, not public-domain
 images. Their inclusion does not imply the subjects or photographers endorse
 Photoso. The demo images are illustrative, not photos collected from app users.
 
-| Local file | Source and credit | License |
+| Local file | Source & credit | License |
 |---|---|---|
 | `assets/camera-concert.jpg` | [Anthony DELANOIX on Unsplash](https://unsplash.com/photos/person-performing-heart-hand-gesture-hzgs56Ze49s), photo `hzgs56Ze49s` | [Unsplash License](https://unsplash.com/license) |
 | `assets/camera-pizza.jpg` | [Hands around Pizza on Table, Pexels](https://www.pexels.com/photo/hands-around-pizza-on-table-14538480/), photo `14538480` | [Pexels License](https://www.pexels.com/license/) |
