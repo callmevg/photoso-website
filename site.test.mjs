@@ -62,6 +62,28 @@ test("all download CTAs use the verified app ID", () => {
   for (const [, url] of urls) assert.ok(url.endsWith("/id6763928712"));
 });
 
+test("legal and support links survive the repository rename", async () => {
+  const support = await readFile(new URL("support.html", root), "utf8");
+  const privacy = await readFile(new URL("privacy.html", root), "utf8");
+  const base = "https://callmevg.github.io/photoso-website/";
+  for (const [filename, source] of [["index.html", html], ["support.html", support], ["privacy.html", privacy]]) {
+    assert.doesNotMatch(source, /https:\/\/callmevg\.github\.io\/photoso\//);
+    for (const [, href] of source.matchAll(/href="([^"]+)"/g)) {
+      const url = new URL(href, base);
+      if (url.origin === new URL(base).origin) {
+        assert.ok(url.pathname.startsWith("/photoso-website/"), `${filename}: ${url}`);
+        const path = url.pathname.slice("/photoso-website/".length) || "index.html";
+        await access(new URL(path, root));
+      }
+    }
+  }
+  assert.ok(html.includes(`content="${base}assets/social.jpg"`));
+  for (const page of [support, privacy]) {
+    assert.ok(page.includes('href="mailto:photoso@vaibhavgupta.co.in"'));
+    assert.ok(page.includes("https://github.com/callmevg/photoso-website/issues/new"));
+  }
+});
+
 test("tabs have associated panels and one initial selection", () => {
   const tabs = [...html.matchAll(/<button[^>]+role="tab"[^>]+>/g)].map(([tag]) => tag);
   assert.equal(tabs.length, 4);
@@ -201,6 +223,10 @@ test("standalone export embeds CSS, JavaScript, and all device image variants", 
     assert.ok(bundle.includes("Copyright (c) 2026 8B"));
     assert.ok(bundle.includes("Anthony DELANOIX"));
     assert.ok(bundle.includes("https://www.pexels.com/license/"));
+    for (const path of ["support.html", "privacy.html"]) {
+      assert.ok(bundle.includes(`href="https://callmevg.github.io/photoso-website/${path}"`));
+      assert.ok(!bundle.includes(`href="${path}"`));
+    }
     for (const [, script] of bundle.matchAll(/<script>([\s\S]*?)<\/script>/g)) {
       assert.doesNotThrow(() => new Script(script));
     }

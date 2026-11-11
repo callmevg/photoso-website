@@ -19,8 +19,8 @@ python3 -m http.server 8080 --bind 127.0.0.1
 
 Open `http://127.0.0.1:8080`.
 
-The public site is hosted at **https://callmevg.github.io/photoso/** from this
-public [callmevg/photoso](https://github.com/callmevg/photoso) repository.
+The public site is hosted at **https://callmevg.github.io/photoso-website/** from this
+public [callmevg/photoso-website](https://github.com/callmevg/photoso-website) repository.
 GitHub Pages publishes its `main` branch at the repository root.
 
 For updates, edit the files here and run the tests below. Commit and push to
@@ -30,8 +30,8 @@ alongside the static files; iOS app source does not belong in this repository.
 
 Preserve the existing `.nojekyll`, `privacy.html`,
 `support.html`, and **`style.css`**. The latter is the legal/support stylesheet,
-distinct from this landing page's **`styles.css`**. Privacy and support retain
-their original URLs and content. Do not mirror this folder with deletion
+distinct from this landing page's **`styles.css`**. Privacy and support remain
+at `privacy.html` and `support.html` under the current site path. Do not mirror this folder with deletion
 enabled, which would remove those existing pages.
 
 For a single offline HTML file with images and the upstream license embedded:
@@ -43,11 +43,12 @@ node bundle.mjs /tmp/photoso-standalone.html
 Only the download, support, privacy, and terms links need an internet connection.
 
 The social preview URL assumes the existing marketing destination,
-`https://callmevg.github.io/photoso/`. If hosting elsewhere, update
+`https://callmevg.github.io/photoso-website/`. If hosting elsewhere, update
 `og:image` to the new absolute URL for `assets/social.jpg`.
 
-All download CTAs point to the verified App Store ID `6763928712`. Support,
-privacy, and terms use the existing public destinations.
+All download CTAs point to the verified App Store ID `6763928712`. Support and
+privacy use relative links; the offline exporter resolves them to the published
+site. Public support and privacy contact: `photoso@vaibhavgupta.co.in`.
 Safari can show Apple's native Smart App Banner using the same verified ID.
 See [Apple's Smart App Banner guidance](https://developer.apple.com/documentation/webkit/promoting-apps-with-smart-app-banners).
 

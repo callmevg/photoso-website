@@ -16,6 +16,9 @@ const css = await readFile(new URL("styles.css", root), "utf8");
 const js = await readFile(new URL("site.js", root), "utf8");
 html = html.replace('<link rel="stylesheet" href="styles.css">', `<style>\n${css}\n</style>`);
 html = html.replace('<script src="site.js"></script>', `<script>\n${js}\n</script>`);
+for (const path of ["support.html", "privacy.html"]) {
+  html = html.replaceAll(`href="${path}"`, `href="https://callmevg.github.io/photoso-website/${path}"`);
+}
 const assets = new Set([...html.matchAll(/["'](assets\/[^"']+)["']/g)].map(([, path]) => path));
 for (const path of assets) {
   const image = await readFile(new URL(path, root));
